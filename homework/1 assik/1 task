@@ -1,7 +1,9 @@
 n = input("Your last name, first name? ").split() 
 a = input("How old are you? ") 
 p = input("Your phone number? ") 
+f = input("Name your fav teacher? ")
 
 print("Your first name, last name:", n[0], n[1]) 
 print("Your age:", a) 
 print("Your phone number:", p) 
+print(f)
