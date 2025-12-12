@@ -1,0 +1,11 @@
+ticket = input("Enter a 6-digit ticket number: ") 
+first_half = ticket[:3] 
+second_half = ticket[3:] 
+
+sum1 = sum(int(d) for d in first_half) 
+sum2 = sum(int(d) for d in second_half) 
+
+if sum1 == sum2: 
+    print("YES") 
+else: 
+    print("NO") 
