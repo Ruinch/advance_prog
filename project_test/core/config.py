@@ -8,7 +8,6 @@ from pydantic_settings import BaseSettings
 class Settings(BaseSettings):
     """
     Central application configuration.
-    Loaded from environment variables or .env file.
     """
 
     # Application
@@ -16,33 +15,29 @@ class Settings(BaseSettings):
     debug: bool = False
 
     # Database
-    database_url: str = Field(
+    DATABASE_URL: str = Field(
         default="sqlite:///./app.db",
         description="Database connection URL",
     )
 
     # JWT
-    jwt_secret_key: str = Field(
+    JWT_SECRET_KEY: str = Field(
         ...,
         description="Secret key for JWT token signing",
     )
-    jwt_algorithm: str = "HS256"
-    access_token_expire_minutes: int = 15
-    refresh_token_expire_minutes: int = 60 * 24 * 7  # 7 days
+    JWT_ALGORITHM: str = "HS256"
+    ACCESS_TOKEN_EXPIRE_MINUTES: int = 15
+    REFRESH_TOKEN_EXPIRE_MINUTES: int = 60 * 24 * 7
 
     model_config = {
         "env_file": ".env",
         "env_file_encoding": "utf-8",
-        "case_sensitive": True,
+        "extra": "ignore",  # ← КЛЮЧЕВО
     }
 
 
 @lru_cache
 def get_settings() -> Settings:
-    """
-    Cached settings instance.
-    Prevents re-reading environment variables multiple times.
-    """
     return Settings()
 
 
