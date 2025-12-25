@@ -19,6 +19,14 @@ class UserCreate(UserBase):
     password: str = Field(min_length=8, max_length=128)
 
 
+class UserLogin(BaseModel):
+    """
+    Schema for user authentication.
+    """
+    email: EmailStr
+    password: str
+
+
 class UserRead(UserBase):
     """
     Schema for returning user data via API.
@@ -28,7 +36,7 @@ class UserRead(UserBase):
     created_at: datetime
 
     class Config:
-        from_attributes = True  # SQLAlchemy compatibility
+        from_attributes = True
 
 
 class Token(BaseModel):
