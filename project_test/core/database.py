@@ -13,9 +13,9 @@ class Base(DeclarativeBase):
 
 
 engine = create_engine(
-    settings.database_url,
+    settings.DATABASE_URL,
     connect_args={"check_same_thread": False}
-    if settings.database_url.startswith("sqlite")
+    if settings.DATABASE_URL.startswith("sqlite")
     else {},
     echo=settings.debug,
 )

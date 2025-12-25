@@ -40,8 +40,8 @@ def _create_token(
     }
     return jwt.encode(
         payload,
-        settings.jwt_secret_key,
-        algorithm=settings.jwt_algorithm,
+        settings.JWT_SECRET_KEY,
+        algorithm=settings.JWT_ALGORITHM,
     )
 
 
@@ -49,7 +49,7 @@ def create_access_token(subject: str) -> str:
     """
     Create JWT access token.
     """
-    expires = timedelta(minutes=settings.access_token_expire_minutes)
+    expires = timedelta(minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES)
     return _create_token(
         subject=subject,
         expires_delta=expires,
@@ -61,7 +61,7 @@ def create_refresh_token(subject: str) -> str:
     """
     Create JWT refresh token.
     """
-    expires = timedelta(minutes=settings.refresh_token_expire_minutes)
+    expires = timedelta(minutes=settings.REFRESH_TOKEN_EXPIRE_MINUTES)
     return _create_token(
         subject=subject,
         expires_delta=expires,
@@ -76,8 +76,8 @@ def decode_token(token: str) -> dict[str, Any]:
     try:
         payload = jwt.decode(
             token,
-            settings.jwt_secret_key,
-            algorithms=[settings.jwt_algorithm],
+            settings.JWT_SECRET_KEY,
+            algorithms=[settings.JWT_ALGORITHM],
         )
         return payload
     except JWTError as exc:
