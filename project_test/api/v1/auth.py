@@ -1,11 +1,9 @@
-# api/v1/auth.py
-
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
 
 from core.database import get_db
 from services.auth import AuthService
-from schemas.user import UserCreate, UserRead, Token
+from schemas.user import UserCreate, UserLogin, UserRead, Token
 from core.exceptions import (
     UserAlreadyExistsError,
     InvalidCredentialsError,
@@ -30,11 +28,10 @@ def register(
     service = AuthService(db)
 
     try:
-        user = service.register(
+        return service.register(
             email=user_in.email,
             password=user_in.password,
         )
-        return user
     except UserAlreadyExistsError:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -47,20 +44,19 @@ def register(
     response_model=Token,
 )
 def login(
-    user_in: UserCreate,
+    user_in: UserLogin,
     db: Session = Depends(get_db),
 ) -> Token:
     """
-    Authenticate user and return JWT tokens.
+    Authenticate user and return JWT access & refresh tokens.
     """
     service = AuthService(db)
 
     try:
-        tokens = service.login(
+        return service.login(
             email=user_in.email,
             password=user_in.password,
         )
-        return tokens
     except InvalidCredentialsError:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
