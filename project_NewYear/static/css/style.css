@@ -45,16 +45,12 @@ body {
 .heart {
     position: absolute;
     bottom: -80px;
-    animation: fly 6s linear forwards;
     pointer-events: auto;
     cursor: pointer;
     user-select: none;
+    will-change: transform;
 }
 
-@keyframes fly {
-    from { transform: translateY(0); opacity: 1; }
-    to   { transform: translateY(-110vh); opacity: 0; }
-}
 
 /* затемнение */
 #overlay {

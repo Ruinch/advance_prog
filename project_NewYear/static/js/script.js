@@ -26,7 +26,7 @@ let hideTimer = null;
 startBtn.addEventListener("click", () => {
     startBtn.style.display = "none";
     if (!intervalId) {
-        intervalId = setInterval(createHeart, 400);
+        intervalId = setInterval(createHeart, 150);
     }
 });
 
@@ -38,14 +38,47 @@ function createHeart() {
         Math.floor(Math.random() * heartImages.length)
     ];
 
-    heart.style.left = Math.random() * 90 + "vw";
+    const startX = Math.random() * window.innerWidth;
+    let y = window.innerHeight + 100;
+
+    const amplitude = 40 + Math.random() * 40; // ширина волны
+    const speed = 1.2 + Math.random() * 1.2;
+    const frequency = 0.02 + Math.random() * 0.02;
+    const rotationAmplitude = 15 + Math.random() * 10;
+
     heart.style.width = (60 + Math.random() * 60) + "px";
+    heart.style.left = startX + "px";
+    heart.style.top = y + "px";
 
     heart.addEventListener("click", showContent);
 
     container.appendChild(heart);
-    setTimeout(() => heart.remove(), 6000);
+
+    let t = Math.random() * 100;
+
+    function animateHeart() {
+        t += 1;
+        y -= speed;
+
+        const xOffset = Math.sin(t * frequency) * amplitude;
+        const rotation = Math.cos(t * frequency) * rotationAmplitude;
+
+        heart.style.transform =
+            `translate(${xOffset}px, 0) rotate(${rotation}deg)`;
+
+        heart.style.top = y + "px";
+
+        if (y < -150) {
+            heart.remove();
+            return;
+        }
+
+        requestAnimationFrame(animateHeart);
+    }
+
+    animateHeart();
 }
+
 
 function showContent() {
     const randomImage = Math.floor(Math.random() * 20) + 1;
