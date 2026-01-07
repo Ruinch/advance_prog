@@ -1,12 +1,20 @@
-body {
+html, body {
+    width: 100%;
+    height: 100%;
     margin: 0;
+}
+
+body {
     overflow: hidden;
-    background: linear-gradient(120deg, #ff5fa2, #ff9acb);
+    background: linear-gradient(120deg, #ffb6c1, #ffd1dc);
     font-family: Arial, sans-serif;
     text-align: center;
 }
 
 
+
+
+/* стартовая кнопка */
 #start-btn {
     position: absolute;
     top: 45%;
@@ -25,103 +33,79 @@ body {
     100% { transform: translate(-50%, -50%) scale(1); }
 }
 
+/* контейнер сердец — не ловит клики */
 #hearts-container {
-    position: absolute;
-    width: 100%;
-    height: 100%;
+    position: fixed;
+    inset: 0;
     pointer-events: none;
+    z-index: 1;
 }
 
+/* сердца — ловят клики */
 .heart {
     position: absolute;
-    bottom: -60px;
+    bottom: -80px;
     animation: fly 6s linear forwards;
+    pointer-events: auto;
     cursor: pointer;
     user-select: none;
-    pointer-events: auto;
 }
 
 @keyframes fly {
-    0% {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(-110vh);
-        opacity: 0;
-    }
+    from { transform: translateY(0); opacity: 1; }
+    to   { transform: translateY(-110vh); opacity: 0; }
 }
 
-.result {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-}
-
-#result-image {
-    max-width: 500px;
-    border-radius: 25px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.45);
-
-    opacity: 0;
-    transform: scale(0.7);
-    transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-#result-image.show {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* затемнение фона */
+/* затемнение */
 #overlay {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.5);
-    opacity: 0;
+    background: rgba(0,0,0,0.55);
+    display: none;
+    z-index: 3;
     pointer-events: none;
-    transition: opacity 0.4s ease;
 }
 
 #overlay.show {
-    opacity: 1;
+    display: block;
 }
 
-/* центр */
-.result {
+/* контент по центру */
+#content {
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    text-align: center;
+    z-index: 4;
     pointer-events: none;
 }
 
-/* фото */
+/* фото — FADE + ZOOM */
 #result-image {
-    max-width: 320px;
-    border-radius: 20px;
-    box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+    max-width: 420px;
+    border-radius: 18px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+
     opacity: 0;
-    transform: scale(0.7);
+    transform: scale(0.85);
     transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
+/* когда показываем */
 #result-image.show {
     opacity: 1;
     transform: scale(1);
 }
 
-/* текст снизу */
+/* текст */
 #result-text {
-    margin-top: 20px;
-    font-size: 26px;
+    margin-top: 15px;
+    font-size: 24px;
     color: white;
+
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+    transform: translateY(15px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
 #result-text.show {
