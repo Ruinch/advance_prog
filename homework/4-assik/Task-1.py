@@ -1,5 +1,5 @@
 # open file and read lines
-with open("text.txt", "r", encoding="utf-8") as f:
+with open("homework/4-assik/text.txt", "r", encoding="utf-8") as f:
     lines = f.readlines()
 
 # count num of lines
@@ -39,7 +39,7 @@ while i < len(lines):
 
 
 # write results in file
-with open("analysis.txt", "w", encoding="utf-8") as f:
+with open("homework/4-assik/analysis.txt", "w", encoding="utf-8") as f:
     f.write("Total lines: " + str(line_count) + "\n")
     f.write("Total words: " + str(word_count) + "\n")
     f.write("Word frequency:\n")
