@@ -18,7 +18,7 @@ while i < len(students):
     avg = s / len(grades)
 
     # add avg
-    students[i]["average"] = avg
+    students[i]["average"] = int(avg)
 
     i = i + 1
 
